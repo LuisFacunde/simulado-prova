@@ -4,6 +4,10 @@ import { StyleSheet, Text, View, ScrollView, SafeAreaView, ActivityIndicator } f
 import News from './src/components/News';
 
 import { fetchNewsService, NewsData } from './src/utils/handle-api';
+import { Platform, StatusBar as headerStatusBar } from 'react-native';
+import { globalStyles } from './src/styles/global';
+
+const statusBarHeight = Platform.OS === 'android' ? headerStatusBar.currentHeight ?? 0 : 0;
 
 export default function App() {
   const [newsList, setNewsList] = useState<NewsData[]>([]);
@@ -63,15 +67,15 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: globalStyles.backgroundColor,
   },
   header: {
     padding: 16,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: globalStyles.primaryColor,
     alignItems: 'center',
-    paddingTop: 40, // Ensure header is spaced from exact top
+    paddingTop: statusBarHeight,
   },
   headerTitle: {
     fontSize: 22,
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     marginTop: 10,
-    fontSize: 16,
+    fontSize: globalStyles.bodyFontSize,
     color: '#666',
   },
   errorText: {
