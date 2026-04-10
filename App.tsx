@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, ActivityIndicator } from 'react-native';
 import News from './src/components/News';
-
 import { fetchNewsService, NewsData } from './src/utils/handle-api';
 import { Platform, StatusBar as headerStatusBar } from 'react-native';
 import { globalStyles } from './src/styles/global';
 
-const statusBarHeight = Platform.OS === 'android' ? headerStatusBar.currentHeight ?? 0 : 0;
+const statusBarHeight = Platform.OS === 'android' ? headerStatusBar.currentHeight : 0;
 
 export default function App() {
   const [newsList, setNewsList] = useState<NewsData[]>([]);
@@ -36,6 +35,7 @@ export default function App() {
       
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Últimas notícias</Text>
+        <Text style={styles.newsCount}>{newsList.length} notícias encontradas</Text>
       </View>
 
       {loading ? (
@@ -56,6 +56,7 @@ export default function App() {
               image={item.image}
               published={item.published}
               link={item.link}
+              summary={item.summary}
             />
           ))}
         </ScrollView>
@@ -80,6 +81,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 22,
     fontWeight: 'bold',
+  },
+  newsCount: {
+    marginTop: 4,
+    fontSize: 14,
+    color: '#666',
   },
   centerContainer: {
     flex: 1,
