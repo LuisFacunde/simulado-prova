@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, ActivityIndicator } from 'react-native';
 import News from './src/components/News';
 import { fetchNewsService, NewsData } from './src/utils/handle-api';
-import { Platform, StatusBar as headerStatusBar } from 'react-native';
+import { FlatList, Platform, StatusBar as headerStatusBar } from 'react-native';
 import { globalStyles } from './src/styles/global';
 
 const statusBarHeight = Platform.OS === 'android' ? headerStatusBar.currentHeight : 0;
@@ -48,18 +48,43 @@ export default function App() {
           <Text style={styles.errorText}>Erro: {error}</Text>
         </View>
       ) : (
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          {newsList.map((item) => (
-            <News
-              key={item.id.toString()}
-              title={item.title}
-              image={item.image}
-              published={item.published}
-              link={item.link}
-              summary={item.summary}
-            />
-          ))}
-        </ScrollView>
+        <FlatList  data={newsList}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+          <News
+            title={item.title}
+            image={item.image}
+            published={item.published}
+            link={item.link}
+            summary={item.summary}
+          /> )} 
+
+          ItemSeparatorComponent={() => 
+            <View style={{ 
+                    height: 1, 
+                    backgroundColor:'#e0e0e0', 
+                    marginHorizontal: 16 
+                  }} 
+          />}
+
+          ListEmptyComponent={!loading ? (
+            <View>
+              <Text>Nenhuma notícia disponível no momento.</Text>
+            </View>
+          ) : null}
+        />
+        // <ScrollView contentContainerStyle={styles.scrollContent}>
+        //   {newsList.map((item) => (
+        //     <News
+        //       key={item.id.toString()}
+        //       title={item.title}
+        //       image={item.image}
+        //       published={item.published}
+        //       link={item.link}
+        //       summary={item.summary}
+        //     />
+        //   ))}
+        // </ScrollView>
       )}
     </SafeAreaView>
   );
