@@ -49,6 +49,18 @@ Para rodar o projeto localmente, certifique-se de possuir:
 - `News.tsx`: Componente focado apenas em renderizar os cartões individuais de cada notícia separadamente.
 - `services/api-handler.ts`: Módulo focado especificamente em realizar a chamada externa HTTP (Fetch) organizando os retornos e tipagens das notícias.
 
+## 📂 Sistema de Deploy
+
+- O EAS (Expo Application Services) é a plataforma oficial da Expo para geração de builds na nuvem.
+- O perfil development é usado para testes com Development Client.
+- O preview é utilizado para distribuição interna para testes.
+- O production gera o build final para publicação nas lojas.
+
+Para gerar um build de preview utilize: 
+```bash
+   eas build --profile preview --platform android
+```
+
 ---
 
 > Projeto desenvolvido visando a facilidade e aprendizado para desenvolvedores que estão iniciando os estudos com React Native e Expo.

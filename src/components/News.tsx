@@ -27,7 +27,7 @@ export default function News({ title, image, published, link, summary }: NewsPro
 
   return (
     <TouchableOpacity style={styles.card} onPress={handlePress} activeOpacity={0.7}>
-      {image ? (
+      {image && !imageError ? (
         <Image style={styles.image} source={{ uri: image }} resizeMode="cover" onError={() => setImageError(true)} />
       ) : (
         <View style={styles.imageFallback}>
@@ -36,7 +36,7 @@ export default function News({ title, image, published, link, summary }: NewsPro
       )}
       <View style={styles.content}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.summary}>{summary}</Text>
+        <Text style={styles.summary} numberOfLines={2}>{summary}</Text>
         <Text style={styles.date}>{published}</Text>
       </View>
     </TouchableOpacity>

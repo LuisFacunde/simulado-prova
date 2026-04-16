@@ -48,16 +48,17 @@ export default function App() {
           <Text style={styles.errorText}>Erro: {error}</Text>
         </View>
       ) : (
-        <FlatList  data={newsList}
+        <FlatList 
+          data={newsList}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-          <News
-            title={item.title}
-            image={item.image}
-            published={item.published}
-            link={item.link}
-            summary={item.summary}
-          /> )} 
+            <News
+              title={item.title}
+              image={item.image}
+              published={item.published}
+              link={item.link}
+              summary={item.summary}
+            /> )}
 
           ItemSeparatorComponent={() => 
             <View style={{ 

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "news-app-expo",
-    "slug": "news-app-expo",
+    "name": "News Luis app",
+    "slug": "news-app-luisfacunde",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,9 +12,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "bundleIdentifier": "com.luisfacunde.newsapp",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.luisfacunde.newsapp",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -25,6 +27,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "393d23f8-a3ef-4e7f-ab6c-47a5dfcb0233"
+      }
+    },
+    "owner": "luis.facunde"
   }
 }
