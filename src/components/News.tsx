@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Linking } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { NewsData } from '../utils/handle-api';
 
 interface NewsProps {
   title: string;
@@ -7,21 +8,16 @@ interface NewsProps {
   published: string;
   link: string;
   summary?: string;
+  onPress?: (news: NewsData) => void;
+  newsData?: NewsData;
 }
 
-export default function News({ title, image, published, link, summary }: NewsProps) {
+export default function News({ title, image, published, link, summary, onPress, newsData }: NewsProps) {
   const [imageError, setImageError] = useState(false);
 
-  const handlePress = async () => {
-    try {
-      const supported = await Linking.canOpenURL(link);
-      if (supported) {
-        await Linking.openURL(link);
-      } else {
-        console.warn(`Não foi possível abrir a URL: ${link}`);
-      }
-    } catch (error) {
-      console.error(error);
+  const handlePress = () => {
+    if (onPress && newsData) {
+      onPress(newsData);
     }
   };
 

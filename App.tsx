@@ -7,8 +7,10 @@ import {
     ScrollView,
     SafeAreaView,
     ActivityIndicator,
+    Modal,
 } from "react-native";
 import News from "./src/components/News";
+import NewsDetail from "./src/components/NewsDetail";
 import { fetchNewsService, NewsData } from "./src/utils/handle-api";
 import {
     TextInput,
@@ -28,6 +30,7 @@ export default function App() {
     const [error, setError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+    const [selectedNews, setSelectedNews] = useState<NewsData | null>(null);
 
     useEffect(() => {
         fetchNews();
@@ -115,6 +118,8 @@ export default function App() {
                             published={item.published}
                             link={item.link}
                             summary={item.summary}
+                            newsData={item}
+                            onPress={setSelectedNews}
                         />
                     )}
                     ItemSeparatorComponent={() => (
@@ -149,6 +154,20 @@ export default function App() {
                 //   ))}
                 // </ScrollView>
             )}
+
+            <Modal
+                animationType="slide"
+                visible={selectedNews !== null}
+                onRequestClose={() => setSelectedNews(null)}
+                presentationStyle="formSheet"
+            >
+                <SafeAreaView style={styles.modal}>
+                    <NewsDetail
+                        news={selectedNews}
+                        onClose={() => setSelectedNews(null)}
+                    />
+                </SafeAreaView>
+            </Modal>
         </SafeAreaView>
     );
 }
@@ -224,5 +243,9 @@ const styles = StyleSheet.create({
     },
     scrollContent: {
         padding: 16,
+    },
+    modal: {
+        flex: 1,
+        backgroundColor: "#fff",
     },
 });
